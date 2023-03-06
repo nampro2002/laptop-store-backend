@@ -32,8 +32,10 @@ public class OrderHistory {
     @ToString.Exclude
     private User user;
     private String phone;
-    @Column(columnDefinition="nvarchar(max)")
+    // @Column(columnDefinition="nvarchar(max)")
+    @Column(columnDefinition="TEXT") 
     private String address;
-    @Column(columnDefinition="nvarchar(max)")
+    // @Column(columnDefinition="nvarchar(max)")
+    @Column(columnDefinition="TEXT") 
     private String description;
 }

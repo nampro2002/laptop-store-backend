@@ -40,9 +40,11 @@ public class User {
     private String username;
     private String password;
     private String phone;
-    @Column(columnDefinition="nvarchar(max)")
+    // @Column(columnDefinition="nvarchar(max)") //sql server
+    @Column(columnDefinition="TEXT") 
     private String imgUrl;
-    @Column(columnDefinition="nvarchar(max)")
+    // @Column(columnDefinition="nvarchar(max)")
+    @Column(columnDefinition="TEXT") 
     private String address;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude 

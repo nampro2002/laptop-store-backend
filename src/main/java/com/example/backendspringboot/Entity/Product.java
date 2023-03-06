@@ -37,7 +37,8 @@ public class Product {
     private String name;
     private int price;
     private double rate;
-    @Column(columnDefinition="nvarchar(max)")
+    // @Column(columnDefinition="nvarchar(max)")
+    @Column(columnDefinition="TEXT") 
     private String imageUrl;
     @OneToMany(mappedBy = "product", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong khi equals và

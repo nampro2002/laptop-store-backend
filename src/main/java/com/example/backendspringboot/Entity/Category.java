@@ -32,7 +32,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @Column(columnDefinition="nvarchar(max)")
+    // @Column(columnDefinition="nvarchar(max)")
+    @Column(columnDefinition="TEXT") 
     private String description;
     private String webUrl;
     
