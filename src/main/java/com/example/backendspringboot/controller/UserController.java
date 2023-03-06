@@ -2,6 +2,7 @@ package com.example.backendspringboot.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,12 +46,12 @@ public class UserController {
     }
     @PutMapping("/user/{id}")
     public ResponseEntity<?> updateInfo(@PathVariable Integer id, @RequestBody UpdateInfoDTORequest updateInfoDTORequest) {
-
+        System.out.println(id +"-"+updateInfoDTORequest);
         return userService.updateInfo(id, updateInfoDTORequest);
     }
     @PatchMapping("/user/{id}")
     public ResponseEntity<?> updatePassword(@PathVariable Integer id, @RequestBody UpdatePasswordDTORequest updatePasswordDTORequest) {
-
+        System.out.println("updatePassword");
         return userService.updatePassword(id, updatePasswordDTORequest);
     }
 

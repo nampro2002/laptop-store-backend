@@ -73,12 +73,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> updatePassword(Integer id, UpdatePasswordDTORequest updatePasswordDTORequest) {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub       
+        System.out.println("user");
         User user = userRepository.findById(id).get();
-        if(user.getPassword().equals(updatePasswordDTORequest.getOldPassword()) == false) {
+        if(!passwordEncoder.matches(updatePasswordDTORequest.getOldPassword(), user.getPassword())) {
             return new ResponseEntity<>("Old password is incorrect!", HttpStatus.BAD_REQUEST);
         }
-        user.setPassword(updatePasswordDTORequest.getNewPassword());
+        user.setPassword(passwordEncoder.encode(updatePasswordDTORequest.getNewPassword()));
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

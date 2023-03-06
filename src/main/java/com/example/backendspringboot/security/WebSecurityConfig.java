@@ -36,15 +36,15 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/products").permitAll()
                         .requestMatchers("/product/**").permitAll()
+                        .requestMatchers("/rate**").hasRole("USER")
                         .requestMatchers("/category").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/history**").permitAll()
+                        .requestMatchers("/history**").hasRole("USER")
                         .requestMatchers("/user**").hasRole("USER")
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/api/cart/**").hasRole("USER")
-                        .requestMatchers("/api/cart**").hasRole("USER")
-                        .requestMatchers("/api/todo/demo").permitAll()
+                        .requestMatchers("/api/cart**").hasRole("USER")                    
                         .anyRequest().authenticated());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

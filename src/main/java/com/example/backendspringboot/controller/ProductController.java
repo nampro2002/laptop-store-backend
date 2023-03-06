@@ -28,7 +28,7 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
-    @PutMapping("/product/rate/{id}")
+    @PutMapping("/rate/{id}")
     public ResponseEntity<?> updateProductRating(@PathVariable Integer id, @RequestBody ProductRatingDTO productRatingDTO) {
         System.out.println("updateProductRating");
         return productService.updateProductRating(id, productRatingDTO.getRate());

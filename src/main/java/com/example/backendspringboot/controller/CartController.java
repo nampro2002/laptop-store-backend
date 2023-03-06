@@ -51,11 +51,6 @@ public class CartController {
         return cartService.removeAllFromCart(userId);
         
     }
-    @GetMapping("/todo/demo")
-    public ResponseEntity<?> xx() {
-        return cartService.getAllCarts(1);
-        
-    }
     // @GetMapping("/cart")
     // public List<CartDTOResponse> getAllCarts(@RequestParam(name = "userId", required = false) Integer userId) {
     // return cartService.getAllCarts(userId);
