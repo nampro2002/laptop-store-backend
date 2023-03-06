@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.backendspringboot.Entity.OrderHistory;
 import com.example.backendspringboot.Entity.User;
+import com.example.backendspringboot.model.history.dto.OrderHistoryDTORequest;
 import com.example.backendspringboot.model.history.dto.OrderHistoryDTOResponse;
 import com.example.backendspringboot.repository.OrderHistoryRepository;
 import com.example.backendspringboot.repository.UserRepository;
@@ -27,7 +28,7 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
         List<OrderHistory> orderHistory = orderHistoryRepository.findAllByUserId(userId);
         List<OrderHistoryDTOResponse> orderHistoryDTOResponse = orderHistory.stream().map(order -> {
             return OrderHistoryDTOResponse.builder()
-                    .userId(order.getUser().getId())
+                    .name(order.getUser().getName())
                     .phone(order.getPhone())
                     .address(order.getAddress())
                     .description(order.getDescription())
@@ -39,19 +40,19 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     }
 
     @Override
-    public ResponseEntity<?> addNewOrderHistory(OrderHistoryDTOResponse orderHistoryDTOResponse) {
+    public ResponseEntity<?> addNewOrderHistory(OrderHistoryDTORequest orderHistoryDTORequest) {
 
-        User user = userRepository.findById(orderHistoryDTOResponse.getUserId())
+        User user = userRepository.findById(orderHistoryDTORequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         OrderHistory orderHistory = OrderHistory.builder()
                 .user(user)
-                .phone(orderHistoryDTOResponse.getPhone())
-                .address(orderHistoryDTOResponse.getAddress())
-                .description(orderHistoryDTOResponse.getDescription())
+                .phone(orderHistoryDTORequest.getPhone())
+                .address(orderHistoryDTORequest.getAddress())
+                .description(orderHistoryDTORequest.getDescription())
                 .build();
         OrderHistory orderHistorySaved = orderHistoryRepository.save(orderHistory);
-        return new ResponseEntity<>(OrderHistoryDTOResponse.builder().userId(orderHistorySaved.getUser().getId())
+        return new ResponseEntity<>(OrderHistoryDTOResponse.builder().name(orderHistorySaved.getUser().getName())
                 .phone(orderHistorySaved.getPhone()).address(orderHistorySaved.getAddress())
                 .description(orderHistorySaved.getDescription()).build(), HttpStatus.OK);
     }

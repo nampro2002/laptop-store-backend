@@ -1,7 +1,5 @@
 package com.example.backendspringboot.controller;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,12 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backendspringboot.Entity.Cart;
 import com.example.backendspringboot.model.cart.dto.AddToCartDTORequest;
-import com.example.backendspringboot.model.cart.dto.CartDTOResponse;
 import com.example.backendspringboot.model.cart.dto.UpdateCartDTORequest;
 import com.example.backendspringboot.service.CartService;
 
@@ -24,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class CartController {
     private final CartService cartService;
 
@@ -51,6 +49,11 @@ public class CartController {
     @DeleteMapping("/cartAll")
     public ResponseEntity<?> removeAllFromCart(@RequestParam(name = "userId", required = false) Integer userId) {
         return cartService.removeAllFromCart(userId);
+        
+    }
+    @GetMapping("/todo/demo")
+    public ResponseEntity<?> xx() {
+        return cartService.getAllCarts(1);
         
     }
     // @GetMapping("/cart")

@@ -1,16 +1,14 @@
 package com.example.backendspringboot.service;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 
-import com.example.backendspringboot.model.history.dto.OrderHistoryDTOResponse;
+import com.example.backendspringboot.model.history.dto.OrderHistoryDTORequest;
 
 public interface OrderHistoryService {
 
     ResponseEntity<?> getOrerHistoryByUserId(Integer userId);
 
-    ResponseEntity<?> addNewOrderHistory(OrderHistoryDTOResponse orderHistoryDTOResponse);
+    ResponseEntity<?> addNewOrderHistory(OrderHistoryDTORequest orderHistoryDTORequest);
     // List<OrderHistoryDTOResponse> getOrerHistoryByUserId(Integer userId);
 
     // OrderHistoryDTOResponse addNewOrderHistory(OrderHistoryDTOResponse orderHistoryDTOResponse);

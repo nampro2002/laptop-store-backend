@@ -11,23 +11,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 // @RequiredArgsConstructor
 public class WebSecurityConfig {
     @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // private final PasswordEncodeConfig passwordEncodeConfig;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+                .csrf().disable()
+                .cors().disable()
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/products").permitAll()
@@ -36,10 +40,11 @@ public class WebSecurityConfig {
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/history**").permitAll()
-                        .requestMatchers("/user/**").permitAll()
-                        // .requestMatchers("/cart/**").permitAll()
-                        // .requestMatchers("/cart**").permitAll()
-                        .requestMatchers("/auth").hasRole("ADMIN")
+                        .requestMatchers("/user**").hasRole("USER")
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/api/cart/**").hasRole("USER")
+                        .requestMatchers("/api/cart**").hasRole("USER")
+                        .requestMatchers("/api/todo/demo").permitAll()
                         .anyRequest().authenticated());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -52,8 +57,27 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
+    // @Bean
+    // public CorsConfigurationSource corsConfigurationSource() {
+    //     CorsConfiguration configuration = new CorsConfiguration();
+    //     configuration.addAllowedOrigin("*");
+    //     configuration.addAllowedMethod("GET");
+    //     configuration.addAllowedMethod("POST");
+    //     configuration.addAllowedMethod("PUT"); // thêm phương thức PUT vào danh sách các phương thức được phép
+    //     configuration.addAllowedMethod("DELETE");
+    //     configuration.addAllowedHeader("*");
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     source.registerCorsConfiguration("/**", configuration);
+    //     return source;
+    // }
 
 }

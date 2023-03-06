@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backendspringboot.model.history.dto.OrderHistoryDTORequest;
 import com.example.backendspringboot.model.history.dto.OrderHistoryDTOResponse;
 import com.example.backendspringboot.service.OrderHistoryService;
 
@@ -28,8 +29,8 @@ public class OrderHistoryController {
 
     }
     @PostMapping("/history")
-    public ResponseEntity<?> addNewOrderHistory(@RequestBody OrderHistoryDTOResponse orderHistoryDTOResponse) {
-        return orderHistoryService.addNewOrderHistory(orderHistoryDTOResponse);
+    public ResponseEntity<?> addNewOrderHistory(@RequestBody OrderHistoryDTORequest orderHistoryDTORequest) {
+        return orderHistoryService.addNewOrderHistory(orderHistoryDTORequest);
 
     }
 

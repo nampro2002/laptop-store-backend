@@ -29,7 +29,9 @@ public class MyUserDetails implements UserDetails {
         List<GrantedAuthority> authorities = user.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getName()))
         .collect(Collectors.toList());
+        System.out.println(authorities);
         return authorities;
+        // return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
     @Override
     public String getUsername() {
