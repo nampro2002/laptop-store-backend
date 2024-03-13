@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
 public class CartController {
     private final CartService cartService;
 

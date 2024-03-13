@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> updatePassword(Integer id, UpdatePasswordDTORequest updatePasswordDTORequest) {
-        // TODO Auto-generated method stub       
+        // TODO Auto-generated method stub
         System.out.println("user");
         User user = userRepository.findById(id).get();
         if(!passwordEncoder.matches(updatePasswordDTORequest.getOldPassword(), user.getPassword())) {

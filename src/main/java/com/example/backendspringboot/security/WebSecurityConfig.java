@@ -30,10 +30,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().disable()
+                .cors(cors -> cors.disable()).csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/products").permitAll()
                         .requestMatchers("/product/**").permitAll()
                         .requestMatchers("/rate**").hasRole("USER")
@@ -44,7 +44,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/user**").hasRole("USER")
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/api/cart/**").hasRole("USER")
-                        .requestMatchers("/api/cart**").hasRole("USER")                    
+                        .requestMatchers("/api/cart**").hasRole("USER")
                         .anyRequest().authenticated());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
